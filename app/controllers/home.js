@@ -4,14 +4,14 @@ var express = require('express'),
   Article = mongoose.model('Article');
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/admin', router);
 };
 
 router.get('/', function (req, res, next) {
   Article.find(function (err, articles) {
     if (err) return next(err);
-    res.render('index', {
-      title: 'Generator-Express MVC',
+    res.render('admin/index', {
+      title: 'Node blog home',
       articles: articles
     });
   });
