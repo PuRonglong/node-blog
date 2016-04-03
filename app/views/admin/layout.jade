@@ -2,6 +2,7 @@ extends ../layout
 
 append css
   link(rel='stylesheet', href='/css/admin.css')
+  link(rel='stylesheet', href='/components/font-awesome/css/font-awesome.css')
 
 block main
   nav.navbar.navbar-inverse.navbar-fixed-top
@@ -16,9 +17,13 @@ block main
       #navbar.navbar-collapse.collapse
         ul.nav.navbar-nav.navbar-right
           li
-            a(href='#') 注销
+            a(href='/admin/users/laout')
+              i.fa.fa-unlock-alt
+              | &nbsp;注销
           li
-            a(href='#') 帮助
+            a(href='#')
+              i.fa.fa-question
+              | &nbsp;帮助
 
   .container-fluid
     .row
@@ -26,16 +31,24 @@ block main
         ul.nav.nav-sidebar
           li.active
             a(href='#')
-              | 文章列表
-              span.sr-only (current)
+              i.fa.fa-files-o
+              | &nbsp;文章列表
           li
-            a(href='/admin/posts/add') 添加文章
+            a(href='/admin/posts/add')
+              i.fa.fa-file-o
+              | &nbsp;添加文章
           li
-            a(href='/admin/categories/list') 分类列表
+            a(href='/admin/categories/list')
+              i.fa.fa-th-list
+              | &nbsp;分类列表
           li
-            a(href='/admin/categories/add') 添加分类
+            a(href='/admin/categories/add')
+              i.fa.fa-plus
+              | &nbsp;添加分类
         ul.nav.nav-sidebar
           li
-            a(href='/admin/users/password') 修改密码
+            a(href='/admin/users/password')
+              i.fa.fa-lock
+              | &nbsp;修改密码
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
         block content
