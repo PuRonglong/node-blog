@@ -4,27 +4,15 @@ var express = require('express'),
   Article = mongoose.model('Article');
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/admin', router);
 };
 
 router.get('/', function (req, res, next) {
   Article.find(function (err, articles) {
     if (err) return next(err);
-    res.render('blog/index', {//渲染的应是blog下面的index
-      title: 'Node blog home',
+    res.render('admin/index', {
+      title: 'Node blog admin',
       articles: articles
     });
   });
-});
-
-router.get('/about', function (req, res, next) {
-    res.render('blog/index', {
-      title: 'About me'
-    });
-});
-
-router.get('/contact', function (req, res, next) {
-    res.render('blog/index', {
-      title: 'Contact me'
-    });
 });
