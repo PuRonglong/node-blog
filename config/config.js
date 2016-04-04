@@ -9,7 +9,7 @@ var config = {
       name: 'node-blog'
     },
     port: 3000,
-    db: 'mongodb://localhost/node-blog-development'
+    db: 'mongodb://localhost/nodeblog'//修改数据库为我们创建的数据库
   },
 
   test: {
