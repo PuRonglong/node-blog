@@ -8,11 +8,11 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  Post.find(function (err, Posts) {
+  Post.find(function (err, posts) {
     if (err) return next(err);
     res.render('blog/index', {//渲染的应是blog下面的index
       title: 'Node blog home',
-      Posts: Posts
+      posts: posts
     });
   });
 });

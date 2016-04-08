@@ -8,11 +8,11 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  Post.find(function (err, Posts) {
+  Post.find(function (err, posts) {
     if (err) return next(err);
     res.render('admin/index', {
       title: 'Node blog admin',
-      Posts: Posts
+      posts: posts
     });
   });
 });
