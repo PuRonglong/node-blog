@@ -12,7 +12,8 @@ router.get('/', function (req, res, next) {
     if (err) return next(err);
     res.render('admin/index', {
       title: 'Node blog admin',
-      posts: posts
+      posts: posts,
+      pretty: true
     });
   });
 });
