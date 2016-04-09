@@ -1,24 +1,24 @@
 var express = require('express'),
-  router = express.Router();
+    router = express.Router();
 
 module.exports = function (app) {
-  app.use('/', router);
+    app.use('/', router);
 };
 
 router.get('/', function (req, res, next) {
-  res.redirect('/posts');//默认首页就跳到我们的文章列表
+    res.redirect('/posts');//默认首页就跳到我们的文章列表
 });
 
 router.get('/about', function (req, res, next) {
-  res.render('blog/index', {
-    title: 'About me',
-    pretty: true
-  });
+    res.render('blog/index', {
+        title: 'About me',
+        pretty: true
+    });
 });
 
 router.get('/contact', function (req, res, next) {
-  res.render('blog/index', {
-    title: 'Contact me',
-    pretty: true
-  });
+    res.render('blog/index', {
+        title: 'Contact me',
+        pretty: true
+    });
 });
