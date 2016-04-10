@@ -27,5 +27,18 @@ block content
                 span.post-link
                     a(href="/posts/view/" + post._id, target='_blank') 查看全文
 
+    if pageCount > 1
+        nav
+            ul.pagination
+                - var currentPage = 1
+                while currentPage < pageCount
+                    if(currentPage === pageNum)
+                        li.active
+                            a(href="/posts?page=" + currentPage)= currentPage++
+                    else
+                        li
+                            a(href="/posts?page=" + currentPage)= currentPage++
+
+
 block scripts
     script $(document).ready(function () {console.log('dom ready')})
