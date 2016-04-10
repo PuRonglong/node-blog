@@ -10,12 +10,15 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-    Post.find().populate('authoer').populate('category').exec(function (err, posts) {
-        if (err) return next(err);
-        res.render('blog/index', {//渲染的应是blog下面的index
-            posts: posts,
-            pretty: true
-        });
+    Post.find({published: true})
+        .populate('authoer')
+        .populate('category')
+        .exec(function (err, posts) {
+            if (err) return next(err);
+            res.render('blog/index', {//渲染的应是blog下面的index
+                posts: posts,
+                pretty: true
+            });
     });
 });
 
