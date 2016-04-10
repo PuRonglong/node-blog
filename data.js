@@ -36,7 +36,7 @@ User.findOne(function(err, user){
         //每一个分类下面随机地生成文章
         categories.forEach(function(category){
 
-            //每一个分类插入35个文档
+            //使用循环让每一个分类插入35个文档
             for(var i = 0; i < 35; i++){
                 //标题随机生成一句话
                 var title = loremipsum({count: 1, units: 'sentence'});
