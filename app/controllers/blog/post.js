@@ -4,6 +4,7 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
     Post = mongoose.model('Post');
+    Category = mongoose.model('Category');
 
 module.exports = function (app) {
     app.use('/posts', router);
@@ -28,11 +29,31 @@ router.get('/', function (req, res, next) {
             }
 
             res.render('blog/index', {
-                posts: posts.slice((pageNum - 1) * pageSize, pageNum * pageSize),
+                posts: posts.slice((pageNum - 1) * pageSize, pageNum * pageSize),//按照每一页进行划分
                 pageNum: pageNum,
                 pageCount: pageCount,
                 pretty: true
             });
+    });
+});
+
+router.get('/category/:name', function (req, res, next) {
+    Category.findOne({name: req.params.name}).exec(function(err, category){
+        if (err) return next(err);
+
+        Post.find({category: category, published: true})
+            .sort('created')
+            .populate('authoer')
+            .populate('category')
+            .exec(function(err, posts){
+                if (err) return next(err);
+
+                res.render('blog/category', {
+                    posts: posts,
+                    category: category,
+                    pretty: true
+                });
+            })
     });
 });
 
