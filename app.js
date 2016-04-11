@@ -5,6 +5,7 @@ var express = require('express'),
     glob = require('glob'),
     mongoose = require('mongoose');
 
+//连接对应的数据库
 mongoose.connect(config.db);
 var db = mongoose.connection;
 db.on('error', function () {
