@@ -57,8 +57,21 @@ router.get('/category/:name', function (req, res, next) {
     });
 });
 
-router.get('/view', function (req, res, next) {
+router.get('/view/:id', function (req, res, next) {
+    if(!req.params.id){
+        return next(new error('no post id provided'));
+    }
 
+    Post.findOne({_id: req.params.id})
+        .populate('category')
+        .populate('authoer')
+        .exec(function(err, post){
+            if(err){return next(err)}
+
+            res.render('blog/view', {
+                post: post
+            })
+        })
 });
 
 router.get('/comment', function (req, res, next) {
