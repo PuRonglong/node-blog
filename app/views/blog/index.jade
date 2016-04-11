@@ -17,7 +17,7 @@ block content
                     =post.authoer.name
                 span.post-cetagory
                     分类：&nbsp;
-                    a(href='/posts/category/' + post.category.name)= post.category.name
+                    a(href='/posts/category/' + post.category.name, target="_blank")= post.category.name
                 span.post-comment
                     评论：&nbsp;
                     =post.comments.length || 0
