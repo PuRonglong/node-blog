@@ -82,10 +82,34 @@ router.get('/view/:id', function (req, res, next) {
         })
 });
 
+router.get('/favorite/:id', function (req, res, next) {
+    if(!req.params.id){
+        return next(new error('no post id provided'));
+    }
+
+    var conditions = {};
+
+    try {
+        conditions._id = mongoose.Types.ObjectId(req.params.id);
+    }catch (err){
+        conditions.slug = req.params.id;
+    }
+
+    Post.findOne(conditions)
+        .populate('category')
+        .populate('authoer')
+        .exec(function(err, post){
+            if(err){return next(err)}
+
+            post.meta.favorite = post.meta.favorite ? post.meta.favorite + 1 : 1;
+            post.markModified('meta');
+            post.save(function(err){
+                res.redirect('/post/view/' + post.slug);
+            })
+        })
+});
+
 router.get('/comment', function (req, res, next) {
 
 });
 
-router.get('/favorite', function (req, res, next) {
-
-});
