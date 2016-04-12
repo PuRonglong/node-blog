@@ -191,6 +191,16 @@ h6, .h6 {
     margin-top: 30px;
 }
 
+.post-comment-item{
+    border: 1px dotted #dddddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.post-comment-email{
+    border-bottom: 1px dotted #dddddd;
+}
+
 /*
  * Footer
  */
