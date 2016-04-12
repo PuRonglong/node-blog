@@ -9,7 +9,6 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
     Post.find().populate('authoer').populate('category').exec(function (err, posts) {
-        return res.json(posts);
         if (err) return next(err);
         res.render('blog/index', {//渲染的应是blog下面的index
             title: 'Node blog home',
