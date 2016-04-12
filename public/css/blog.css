@@ -187,6 +187,10 @@ h6, .h6 {
     text-align: justify;
 }
 
+.post-comments, .post-comment-form{
+    margin-top: 30px;
+}
+
 /*
  * Footer
  */
