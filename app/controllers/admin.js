@@ -8,5 +8,12 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-    res.redirect('/admin/posts');
+    Post.find(function (err, posts) {
+        if (err) return next(err);
+        res.render('admin/index', {
+            title: 'Node blog admin',
+            posts: posts,
+            pretty: true
+        });
+    });
 });

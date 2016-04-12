@@ -3,7 +3,7 @@
 var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
-    Post = mongoose.model('Post'),
+    Post = mongoose.model('Post');
     Category = mongoose.model('Category');
 
 module.exports = function (app) {
