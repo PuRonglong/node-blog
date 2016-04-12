@@ -23,9 +23,10 @@ block content
                 &nbsp;
                 = post.comments.length || 0
             span.post-favorite
-                i.fa.fa-star
-                &nbsp;
-                = post.meta.favorite || 0
+                a(href='/posts/favorite/' + post._id)
+                    i.fa.fa-star
+                    &nbsp;
+                    = post.meta.favorite || 0
 
         div.post-content
             = post.content
