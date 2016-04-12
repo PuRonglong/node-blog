@@ -138,6 +138,7 @@ router.post('/comment/:id', function (req, res, next) {
         post.comments.unshift(comment);
         post.markModified("comments");
         post.save(function(err, post){
+            req.flash('info', '评论添加成功');
             res.redirect('/posts/view/' + post.slug)
         })
     })
