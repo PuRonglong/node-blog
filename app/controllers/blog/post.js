@@ -104,7 +104,7 @@ router.get('/favorite/:id', function (req, res, next) {
             post.meta.favorite = post.meta.favorite ? post.meta.favorite + 1 : 1;
             post.markModified('meta');
             post.save(function(err){
-                res.redirect('/post/view/' + post.slug);
+                res.redirect('/posts/view/' + post.slug);
             })
         })
 });
