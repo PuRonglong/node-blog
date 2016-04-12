@@ -62,7 +62,15 @@ router.get('/view/:id', function (req, res, next) {
         return next(new error('no post id provided'));
     }
 
-    Post.findOne({_id: req.params.id})
+    var conditions = {};
+
+    try {
+        conditions._id = mongoose.Types.ObjectId(req.params.id);
+    }catch (err){
+        conditions.slug = req.params.id;
+    }
+
+    Post.findOne(conditions)
         .populate('category')
         .populate('authoer')
         .exec(function(err, post){
