@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+    h2.page-header Node全栈开发博客系统
+
+    table.table.table-bordered
+        thead
+            tr
+                th(width="30%") 标题
+                th 分类
+                th 作者
+                th 创建时间
+                th 被赞
+                th 评论
+                th 状态
+                th 管理
+
+        tbody
+            each post in posts
+                tr
+                    td
+                        a(href="/posts/view/" + post._id, target="_blank")= post.title
+                    td= post.category.name
+                    td= post.authoer.name
+                    td= moment(post.created).format('YYYY-MM-DD HH:mm:ss')
+                    td= post.meta.favorites || 0
+                    td= post.comments.length || 0
+                    td= post.published? '已发布' : '待发布'
+                    td
+                        a(href="/posts/view/" + post._id, class="btn btn-sm btn-success", target="_blank")
+                        &nbsp;&nbsp;
+                        a(href="/posts/admin/edit/" + post._id, class="btn btn-sm btn-info", target="_blank") 编辑
+                        &nbsp;&nbsp;
+                        a(href="/posts/admin/delete/" + post._id, class="btn btn-sm btn-danger", target="_blank") 删除
+
+
+    if pageCount > 1
+        nav
+            ul.pagination
+                - var currentPage = 1
+                while currentPage < pageCount
+                    if(currentPage === pageNum)
+                        li.active
+                            a(href="/posts?page=" + currentPage)= currentPage++
+                    else
+                        li
+                            a(href="/posts?page=" + currentPage)= currentPage++
+
+
+block scripts
+    script $(document).ready(function () {console.log('dom ready')})
