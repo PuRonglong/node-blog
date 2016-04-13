@@ -30,7 +30,7 @@ block main
             .col-sm-3.col-md-2.sidebar
                 ul.nav.nav-sidebar
                     li.active
-                        a(href='#')
+                        a(href='/admin/posts')
                             i.fa.fa-files-o
                             | &nbsp;文章列表
                     li
@@ -38,7 +38,7 @@ block main
                             i.fa.fa-file-o
                             | &nbsp;添加文章
                     li
-                        a(href='/admin/categories/list')
+                        a(href='/admin/categories')
                             i.fa.fa-th-list
                             | &nbsp;分类列表
                     li
@@ -51,4 +51,5 @@ block main
                             i.fa.fa-lock
                             | &nbsp;修改密码
             .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                != messages()
                 block content
