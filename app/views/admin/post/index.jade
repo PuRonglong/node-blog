@@ -20,12 +20,62 @@ block content
                     else
                         a(href="/admin/posts?page=" + pageNum + "&sortby=title&sortdir=desc")
                             标题
-                th 分类
-                th 作者
-                th 创建时间
+                th
+                    if sortby === 'category'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=category&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;分类
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=category&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;分类
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=category&sortdir=desc")
+                            分类
+                th
+                    if sortby === 'authoer'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=authoer&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;作者
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=authoer&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;作者
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=authoer&sortdir=desc")
+                            作者
+                th
+                    if sortby === 'created'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=created&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;创建时间
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=created&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;创建时间
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=created&sortdir=desc")
+                            创建时间
+
                 th 被赞
                 th 评论
-                th 状态
+
+                th
+                    if sortby === 'published'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=published&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;状态
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=published&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;状态
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=published&sortdir=desc")
+                            状态
                 th 管理
 
         tbody
