@@ -46,6 +46,8 @@ router.get('/', function (req, res, next) {
                 posts: posts.slice((pageNum - 1) * pageSize, pageNum * pageSize),//按照每一页进行划分
                 pageNum: pageNum,
                 pageCount: pageCount,
+                sortdir: sortdir,
+                sortby: sortby,
                 pretty: true
             });
         });
