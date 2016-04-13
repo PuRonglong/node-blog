@@ -39,4 +39,22 @@ router.get('/edit/:id', function (req, res, next) {});
 
 router.post('/edit/:id', function (req, res, next) {});
 
-router.get('/delete/:id', function (req, res, next) {});
+router.get('/delete/:id', function (req, res, next) {
+    if(!req.params.id){
+        return next(new Error('no post id provided'));
+    }
+
+    Post.remove({_id: req.params.id}).exec(function(err, rowsRemoved){
+        if(err){
+            return next(err);
+        }
+
+        if(rowsRemoved){
+            req.flash('success', '文章删除成功');
+        }else{
+            req.flash('success', '文章删除失败');
+        }
+
+        res.redirect('/admin/posts')
+    })
+});
