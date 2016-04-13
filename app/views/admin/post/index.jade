@@ -6,7 +6,20 @@ block content
     table.table.table-bordered
         thead
             tr
-                th(width="30%") 标题
+                th(width="30%")
+                    if sortby === 'title'
+                        if (sortdir === 'desc')
+                            //排序的时候记住当前页码而不是重置
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=title&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;标题
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=title&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;标题
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=title&sortdir=desc")
+                            标题
                 th 分类
                 th 作者
                 th 创建时间
@@ -41,10 +54,10 @@ block content
                 while currentPage < pageCount
                     if(currentPage === pageNum)
                         li.active
-                            a(href="/admin/posts?page=" + currentPage)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
                     else
                         li
-                            a(href="/admin/posts?page=" + currentPage)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
 
 
 block scripts
