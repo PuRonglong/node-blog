@@ -29,9 +29,9 @@ block content
                     td
                         a(href="/posts/view/" + post._id, class="btn btn-sm btn-success", target="_blank") 查看
                         &nbsp;&nbsp;
-                        a(href="/posts/admin/edit/" + post._id, class="btn btn-sm btn-info", target="_blank") 编辑
+                        a(href="/admin/posts/edit/" + post._id, class="btn btn-sm btn-info", target="_blank") 编辑
                         &nbsp;&nbsp;
-                        a(href="/posts/admin/delete/" + post._id, class="btn btn-sm btn-danger", target="_blank") 删除
+                        a(href="/admin/posts/delete/" + post._id, class="btn btn-sm btn-danger") 删除
 
 
     if pageCount > 1
@@ -41,10 +41,10 @@ block content
                 while currentPage < pageCount
                     if(currentPage === pageNum)
                         li.active
-                            a(href="/posts?page=" + currentPage)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage)= currentPage++
                     else
                         li
-                            a(href="/posts?page=" + currentPage)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage)= currentPage++
 
 
 block scripts
