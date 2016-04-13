@@ -9,8 +9,24 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
+    var sortby = req.query.sortby ? req.query.sortby : 'title';
+    var sortdir = req.query.sortdir ? req.query.sortdir : 'desc';
+
+    if(['title', 'category', 'authoer', 'created', 'published'].indexOf(sortby) === -1){
+        sortby = 'created';
+    }
+
+    //排序方向,升和降
+    if(['desc', 'asc'].indexOf(sortdir) === -1){
+        sortdir = 'desc';//默认降序
+    }
+
+    //排序对象
+    var sortObj = {};
+    sortObj[sortby] = sortdir;
+
     Post.find({published: true})
-        .sort('created')
+        .sort(sortObj)
         .populate('authoer')
         .populate('category')
         .exec(function (err, posts) {
