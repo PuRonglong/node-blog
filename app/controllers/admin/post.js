@@ -53,6 +53,16 @@ router.get('/', function (req, res, next) {
         });
 });
 
+router.get('/add', function (req, res, next) {
+    res.render('admin/post/add', {
+        pretty: true
+    });
+});
+
+router.post('/add', function (req, res, next) {
+
+});
+
 router.get('/edit/:id', function (req, res, next) {});
 
 router.post('/edit/:id', function (req, res, next) {});
