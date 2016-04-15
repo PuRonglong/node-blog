@@ -2,6 +2,7 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
     Post = mongoose.model('Post'),
+    User = mongoose.model('User'),
     Category = mongoose.model('Category');
 
 module.exports = function (app) {
@@ -9,6 +10,8 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
+
+    //sort
     var sortby = req.query.sortby ? req.query.sortby : 'title';
     var sortdir = req.query.sortdir ? req.query.sortdir : 'desc';
 
@@ -25,32 +28,52 @@ router.get('/', function (req, res, next) {
     var sortObj = {};
     sortObj[sortby] = sortdir;
 
-    Post.find({published: true})
-        .sort(sortObj)
-        .populate('authoer')
-        .populate('category')
-        .exec(function (err, posts) {
-            if (err) return next(err);
+    //condition
+    var conditions = {};
+    if(req.query.category){
+        conditions.category = req.query.category.trim();
+    }
 
-            var pageNum = Math.abs(parseInt(req.query.page || 1, 10));//页数,让pageNum变成正整数
-            var pageSize = 10;//一页展示十条
-            var totalCount = posts.length;//得到文章总数
-            var pageCount = Math.ceil(totalCount / pageSize);//文章页数 = 文章总数 / 每页文章数
+    if(req.query.author){
+        conditions.author = req.query.author.trim();
+    }
 
-            //如果当前页数大于总页数,把最后一页设为当前页数
-            if(pageNum > pageCount){
-                pageNum = pageCount;
-            }
+    User.find({}, function(err, authors){
+        if (err) return next(err);
 
-            res.render('admin/post/index', {
-                posts: posts.slice((pageNum - 1) * pageSize, pageNum * pageSize),//按照每一页进行划分
-                pageNum: pageNum,
-                pageCount: pageCount,
-                sortdir: sortdir,
-                sortby: sortby,
-                pretty: true
+        Post.find(conditions)
+            .sort(sortObj)
+            .populate('authoer')
+            .populate('category')
+            .exec(function (err, posts) {
+                if (err) return next(err);
+
+                var pageNum = Math.abs(parseInt(req.query.page || 1, 10));//页数,让pageNum变成正整数
+                var pageSize = 10;//一页展示十条
+                var totalCount = posts.length;//得到文章总数
+                var pageCount = Math.ceil(totalCount / pageSize);//文章页数 = 文章总数 / 每页文章数
+
+                //如果当前页数大于总页数,把最后一页设为当前页数
+                if(pageNum > pageCount){
+                    pageNum = pageCount;
+                }
+
+                res.render('admin/post/index', {
+                    posts: posts.slice((pageNum - 1) * pageSize, pageNum * pageSize),//按照每一页进行划分
+                    pageNum: pageNum,
+                    pageCount: pageCount,
+                    authors: authors,
+                    sortdir: sortdir,
+                    sortby: sortby,
+                    pretty: true,
+                    filter: {
+                        category: req.query.category || "",
+                        author: req.query.author || "",
+                    }
+                });
             });
-        });
+    });
+
 });
 
 router.get('/add', function (req, res, next) {
