@@ -26,7 +26,7 @@ module.exports = function(app, config) {
     app.set('view engine', 'jade');
 
     app.use(function(req, res, next){
-        app.locals.pageName = req.path;
+        app.locals.pageName = req.path;//当前请求的路径
         app.locals.moment = moment;
         app.locals.truncate = truncate;
         Category.find(function(err, categories){
