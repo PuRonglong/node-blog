@@ -4,6 +4,7 @@ var express = require('express'),
     Post = mongoose.model('Post'),
     User = mongoose.model('User'),
     slug = require('slug'),
+    pinyin = require('pinyin'),
     Category = mongoose.model('Category');
 
 module.exports = function (app) {
@@ -110,9 +111,16 @@ router.post('/add', function (req, res, next) {
             return next(err);
         }
 
+        var py = pinyin(title, {
+            style: pinyin.STYLE_NORMAL,
+            heteronym: false
+        }).map(function(item){
+            return item[0];
+        }).join(' ');
+
         var post = new Post({
             title: title,
-            slug: slug(title),
+            slug: slug(py),
             category: category,
             content: content,
             author: author,
