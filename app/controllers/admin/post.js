@@ -84,6 +84,22 @@ router.get('/add', function (req, res, next) {
 });
 
 router.post('/add', function (req, res, next) {
+
+    //进行校验
+    req.checkBody('title', '文章标题不能为空').notEmpty();
+    req.checkBody('category', '必须指定文章分类').notEmpty();
+    req.checkBody('content', '写点文章内容呀').notEmpty();
+
+    //获取后端验证的错误,若有错则重新渲染
+    var errors = req.validationErrors();
+    if(errors){
+        return res.render('admin/post/add', {
+            errors: errors,
+            title: req.body.title,
+            content: req.body.content
+        });
+    }
+
     //把提交的参数初始化
     var title = req.body.title.trim();
     var category = req.body.category.trim();
