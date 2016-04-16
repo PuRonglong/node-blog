@@ -29,5 +29,7 @@ $(document).ready(function() {
     })
 
     //add page
-    CKEDITOR.replace('js-post-content');
+    if(typeof CKEDITOR !== 'undefined'){
+        CKEDITOR.replace('js-post-content');
+    }
 });
