@@ -13,7 +13,7 @@ module.exports = function (app) {
 router.get('/', function (req, res, next) {
     Post.find({published: true})
         .sort('created')
-        .populate('authoer')
+        .populate('author')
         .populate('category')
         .exec(function (err, posts) {
             if (err) return next(err);
@@ -43,7 +43,7 @@ router.get('/category/:name', function (req, res, next) {
 
         Post.find({category: category, published: true})
             .sort('created')
-            .populate('authoer')
+            .populate('author')
             .populate('category')
             .exec(function(err, posts){
                 if (err) return next(err);
@@ -72,7 +72,7 @@ router.get('/view/:id', function (req, res, next) {
 
     Post.findOne(conditions)
         .populate('category')
-        .populate('authoer')
+        .populate('author')
         .exec(function(err, post){
             if(err){return next(err)}
 
@@ -97,7 +97,7 @@ router.get('/favorite/:id', function (req, res, next) {
 
     Post.findOne(conditions)
         .populate('category')
-        .populate('authoer')
+        .populate('author')
         .exec(function(err, post){
             if(err){return next(err)}
 

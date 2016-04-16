@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
     var sortby = req.query.sortby ? req.query.sortby : 'title';
     var sortdir = req.query.sortdir ? req.query.sortdir : 'desc';
 
-    if(['title', 'category', 'authoer', 'created', 'published'].indexOf(sortby) === -1){
+    if(['title', 'category', 'author', 'created', 'published'].indexOf(sortby) === -1){
         sortby = 'created';
     }
 
@@ -43,7 +43,7 @@ router.get('/', function (req, res, next) {
 
         Post.find(conditions)
             .sort(sortObj)
-            .populate('authoer')
+            .populate('author')
             .populate('category')
             .exec(function (err, posts) {
                 if (err) return next(err);

@@ -19,7 +19,7 @@ block content
                     =moment(post.created).format('YYYY-MM-DD')
                 span.post-author
                     作者：&nbsp;
-                    =post.authoer.name
+                    =post.author.name
                 span.post-cetagory
                     分类：&nbsp;
                     a(href='/posts/category/' + post.category.name, target="_blank")= post.category.name

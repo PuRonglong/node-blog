@@ -22,7 +22,7 @@ var Post = mongoose.model('Post');
 var User = mongoose.model('User');
 var Category = mongoose.model('Category');
 
-//不会生成很多用户和分类
+//我们这个随机插入大量数据不会随机生成很多用户和分类
 User.findOne(function(err, user){
     if(err){
         return console.log('cannot find user');
@@ -46,7 +46,7 @@ User.findOne(function(err, user){
                     content: loremipsum({count: 30, units: 'sentence'}),
                     slug: slug(title),
                     category: category,
-                    authoer: user,
+                    author: user,
                     published: true,
                     meta: {favorites: 0},
                     comments: [ ],

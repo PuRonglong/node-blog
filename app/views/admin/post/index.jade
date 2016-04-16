@@ -53,17 +53,17 @@ block content
                         a(href="/admin/posts?page=" + pageNum + "&sortby=category&sortdir=desc")
                             分类
                 th
-                    if sortby === 'authoer'
+                    if sortby === 'author'
                         if (sortdir === 'desc')
-                            a(href="/admin/posts?page=" + pageNum + "&sortby=authoer&sortdir=asc")
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=author&sortdir=asc")
                                 i.fa.fa-arrow-down
                                 &nbsp;作者
                         else
-                            a(href="/admin/posts?page=" + pageNum + "&sortby=authoer&sortdir=desc")
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=author&sortdir=desc")
                                 i.fa.fa-arrow-up
                                 &nbsp;作者
                     else
-                        a(href="/admin/posts?page=" + pageNum + "&sortby=authoer&sortdir=desc")
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=author&sortdir=desc")
                             作者
                 th
                     if sortby === 'created'
@@ -103,7 +103,7 @@ block content
                     td
                         a(href="/posts/view/" + post._id, target="_blank")= post.title
                     td= post.category.name
-                    td= post.authoer.name
+                    td= post.author.name
                     td= moment(post.created).format('YYYY-MM-DD HH:mm:ss')
                     td= post.meta.favorites || 0
                     td= post.comments.length || 0
