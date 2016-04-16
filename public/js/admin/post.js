@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+    //page list
     var ngCategory = $('#js-category');
     var ngAuthor = $('#js-author');
 
@@ -25,4 +27,7 @@ $(document).ready(function() {
         console.log(queryString.stringify(query));
         window.location.url = window.location.origin + window.location.pathname + queryString.stringify(query);
     })
+
+    //add page
+    CKEDITOR.replace('js-post-content');
 });
