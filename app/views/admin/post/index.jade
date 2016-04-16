@@ -123,11 +123,12 @@ block content
                 while currentPage < pageCount
                     if(currentPage === pageNum)
                         li.active
-                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
                     else
                         li
-                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
 
 
 block scripts
-    script $(document).ready(function () {console.log('dom ready')})
+    script(src='/js/querystring.js')
+    script(src='/js/admin/post.js')
