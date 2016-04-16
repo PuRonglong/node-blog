@@ -12,7 +12,7 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
     Post.find({published: true})
-        .sort('created')
+        .sort('-created')
         .populate('author')
         .populate('category')
         .exec(function (err, posts) {
