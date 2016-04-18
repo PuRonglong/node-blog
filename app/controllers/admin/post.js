@@ -147,7 +147,6 @@ router.post('/add', function (req, res, next) {
 });
 
 router.get('/edit/:id', getPostById, function (req, res, next) {
-
     res.render('admin/post/add', {
         action: "/admin/posts/edit/" + req.post._id,
         post: req.post
