@@ -20,7 +20,7 @@ models.forEach(function (model) {
 //生成express应用
 var app = express();
 
-require('./config/express')(app, config);
+require('./config/express')(app, config, db);
 require('./config/passport').init();
 
 //让这个express应用监听某个端口
