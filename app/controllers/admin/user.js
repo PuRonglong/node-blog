@@ -2,10 +2,36 @@ var express = require('express'),
     router = express.Router();
 
 module.exports = function (app) {
-    app.use('/admin', router);
+    app.use('/admin/users', router);
 };
 
-router.get('/', function (req, res, next) {
-    res.redirect('admin/posts');
+router.get('/login', function (req, res, next) {
+    res.render('admin/usr/login', {
+        pretty: true
+    });
 });
 
+//登陆的提交
+router.post('/login', function (req, res, next) {
+    res.jsonp(req.body);
+    res.render('admin/usr/login', {
+        pretty: true
+    });
+});
+
+router.get('/register', function (req, res, next) {
+    res.render('admin/usr/login', {
+        pretty: true
+    });
+});
+
+router.post('/register', function (req, res, next) {
+    res.jsonp(req.body);
+    res.render('admin/usr/login', {
+        pretty: true
+    });
+});
+
+router.get('/layout', function (req, res, next) {
+    res.redirect('/');
+});
