@@ -80,7 +80,11 @@ router.get('/', function (req, res, next) {
 
 router.get('/add', function (req, res, next) {
     res.render('admin/post/add', {
-        pretty: true
+        action: "/admin/posts/add",
+        pretty: true,
+        post: {
+            category: {_id: ''}
+        }
     });
 });
 
@@ -142,9 +146,60 @@ router.post('/add', function (req, res, next) {
     });
 });
 
-router.get('/edit/:id', function (req, res, next) {});
+router.get('/edit/:id', function (req, res, next) {
+    if(!req.params.id){
+        return next(new error('no post id provided'));
+    }
 
-router.post('/edit/:id', function (req, res, next) {});
+    Post.findOne({_id: req.params.id})
+        .populate('category')
+        .populate('author')
+        .exec(function(err, post){
+            if(err){return next(err)}
+
+            res.render('admin/post/add', {
+                action: "/admin/posts/edit/" + post._id,
+                post: post
+            });
+        });
+});
+
+router.post('/edit/:id', function (req, res, next) {
+    if(!req.params.id){
+        return next(new error('no post id provided'));
+    }
+
+    Post.findOne({_id: req.params.id}).exec(function(err, post){
+        if(err){return next(err)}
+
+        var title = req.body.title.trim();
+        var category = req.body.category.trim();
+        var content = req.body.content;
+
+        var py = pinyin(title, {
+            style: pinyin.STYLE_NORMAL,
+            heteronym: false
+        }).map(function(item){
+            return item[0];
+        }).join(' ');
+
+        post.title = title;
+        post.category = category;
+        post.content = content;
+        post.slug = slug(py);
+
+        //然后调用post保存
+        post.save(function(err, post){
+            if(err){
+                req.flash('error', '文章编辑失败');
+                res.redirect('/admin/posts/edit');
+            }else {
+                req.flash('info', '文章编辑成功');
+                res.redirect('/admin/posts');
+            }
+        });
+    });
+});
 
 router.get('/delete/:id', function (req, res, next) {
     if(!req.params.id){
