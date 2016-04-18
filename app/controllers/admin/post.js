@@ -149,13 +149,14 @@ router.post('/add', function (req, res, next) {
 router.get('/edit/:id', getPostById, function (req, res, next) {
 
     res.render('admin/post/add', {
-        action: "/admin/posts/edit/" + post._id,
-        post: post
+        action: "/admin/posts/edit/" + req.post._id,
+        post: req.post
     });
 });
 
 router.post('/edit/:id', getPostById, function (req, res, next) {
 
+    var post = req.post;
     var title = req.body.title.trim();
     var category = req.body.category.trim();
     var content = req.body.content;
