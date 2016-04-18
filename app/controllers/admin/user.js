@@ -6,7 +6,7 @@ module.exports = function (app) {
 };
 
 router.get('/login', function (req, res, next) {
-    res.render('admin/usr/login', {
+    res.render('admin/user/login', {
         pretty: true
     });
 });
@@ -14,20 +14,20 @@ router.get('/login', function (req, res, next) {
 //登陆的提交
 router.post('/login', function (req, res, next) {
     res.jsonp(req.body);
-    res.render('admin/usr/login', {
+    res.render('admin/user/login', {
         pretty: true
     });
 });
 
 router.get('/register', function (req, res, next) {
-    res.render('admin/usr/login', {
+    res.render('admin/user/login', {
         pretty: true
     });
 });
 
 router.post('/register', function (req, res, next) {
     res.jsonp(req.body);
-    res.render('admin/usr/login', {
+    res.render('admin/user/login', {
         pretty: true
     });
 });
