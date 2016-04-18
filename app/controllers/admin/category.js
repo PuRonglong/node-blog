@@ -98,7 +98,23 @@ router.post('/edit/:id', getCategoryById, function (req, res, next) {
 });
 
 router.get('/delete/:id', getCategoryById, function (req, res, next) {
+    if(!req.params.id){
+        return next(new Error('no post id provided'));
+    }
 
+    req.category.remove(function(err, rowsRemoved){
+        if(err){
+            return next(err);
+        }
+
+        if(rowsRemoved){
+            req.flash('success', '分类删除成功');
+        }else{
+            req.flash('success', '分类删除失败');
+        }
+
+        res.redirect('/admin/categories')
+    });
 });
 
 function getCategoryById(req, res, next){
