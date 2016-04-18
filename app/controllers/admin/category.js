@@ -4,19 +4,20 @@ var express = require('express'),
     Post = mongoose.model('Post'),
     pinyin = require('pinyin'),
     slug = require('slug'),
+    auth = require('./user'),
     Category = mongoose.model('Category');
 
 module.exports = function (app) {
     app.use('/admin/categories', router);//路由的挂载点
 };
 
-router.get('/', function (req, res, next) {
+router.get('/', auth.requireLogin, function (req, res, next) {
     res.render('admin/category/index', {
         pretty: true
     });
 });
 
-router.get('/add', function (req, res, next) {
+router.get('/add', auth.requireLogin, function (req, res, next) {
     res.render('admin/category/add', {
         action: "/admin/categories/add",
         pretty: true,
@@ -24,7 +25,7 @@ router.get('/add', function (req, res, next) {
     });
 });
 
-router.post('/add', function (req, res, next) {
+router.post('/add', auth.requireLogin, function (req, res, next) {
     //进行校验
     req.checkBody('name', '分类标题不能为空').notEmpty();
 
@@ -64,14 +65,14 @@ router.post('/add', function (req, res, next) {
         });
 });
 
-router.get('/edit/:id', getCategoryById, function (req, res, next) {
+router.get('/edit/:id', auth.requireLogin, getCategoryById, function (req, res, next) {
     res.render('admin/category/add', {
         action: "/admin/categories/edit/" + req.category._id,
         category: req.category
     });
 });
 
-router.post('/edit/:id', getCategoryById, function (req, res, next) {
+router.post('/edit/:id', auth.requireLogin, getCategoryById, function (req, res, next) {
     var category = req.category;
     var name = req.body.name.trim();
 
@@ -97,7 +98,7 @@ router.post('/edit/:id', getCategoryById, function (req, res, next) {
     });
 });
 
-router.get('/delete/:id', getCategoryById, function (req, res, next) {
+router.get('/delete/:id', auth.requireLogin, getCategoryById, function (req, res, next) {
     if(!req.params.id){
         return next(new Error('no post id provided'));
     }
