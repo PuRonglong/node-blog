@@ -21,6 +21,7 @@ models.forEach(function (model) {
 var app = express();
 
 require('./config/express')(app, config);
+require('./config/passport').init();
 
 //让这个express应用监听某个端口
 app.listen(config.port, function () {
