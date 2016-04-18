@@ -64,10 +64,59 @@ router.post('/add', function (req, res, next) {
         });
 });
 
-router.get('/edit/:id', function (req, res, next) {});
+router.get('/edit/:id', getCategoryById, function (req, res, next) {
+    res.render('admin/category/add', {
+        action: "/admin/categories/edit/" + req.category._id,
+        category: req.category
+    });
+});
 
-router.post('/edit/:id', function (req, res, next) {});
+router.post('/edit/:id', getCategoryById, function (req, res, next) {
+    var category = req.category;
+    var name = req.body.name.trim();
 
-router.get('/delete/:id', function (req, res, next) {
+    var py = pinyin(name, {
+        style: pinyin.STYLE_NORMAL,
+        heteronym: false
+    }).map(function(item){
+        return item[0];
+    }).join(' ');
+
+    category.name = name;
+    category.slug = slug(py);
+
+    //然后调用post保存
+    category.save(function(err, category){
+        if(err){
+            req.flash('error', '分类编辑失败');
+            res.redirect('/admin/categories/edit');
+        }else {
+            req.flash('info', '分类编辑成功');
+            res.redirect('/admin/categories');
+        }
+    });
+});
+
+router.get('/delete/:id', getCategoryById, function (req, res, next) {
 
 });
+
+function getCategoryById(req, res, next){
+    if(!req.params.id){
+        return next(new error('no category id provided'));
+    }
+
+    Category.findOne({_id: req.params.id})
+        .exec(function(err, category){
+            if(err){
+                return next(err)
+            }
+
+            if(!category){
+                return next(new Error('category not found', req.params._id))
+            }
+
+            req.category = category;
+            next();
+        });
+}
