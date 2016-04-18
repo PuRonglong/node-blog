@@ -1,15 +1,17 @@
 $(document).ready(function() {
 
     //page list
-    var ngCategory = $('#js-category');
-    var ngAuthor = $('#js-author');
+    var ndCategory = $('#js-category');
+    var ndAuthor = $('#js-author');
+    var ndKeyword = $('#js-keyword');
 
     $('#js-filter-submit').on('click', function(){
         var query = queryString.parse(location.search);
 
         //获取这两个下拉列表的值
-        var category = ngCategory.val();
-        var author = ngAuthor.val();
+        var category = ndCategory.val();
+        var author = ndAuthor.val();
+        var keyword = ndKeyword.val();
 
         //把用户选到的值放到查询对象里面
         if(category){
@@ -22,6 +24,12 @@ $(document).ready(function() {
             query.author = author;
         }else{
             delete  query.author;
+        }
+
+        if(keyword){
+            query.keyword = keyword;
+        }else{
+            delete  query.keyword;
         }
 
         console.log(queryString.stringify(query));
