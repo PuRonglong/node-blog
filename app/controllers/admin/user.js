@@ -20,7 +20,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/register', function (req, res, next) {
-    res.render('admin/user/login', {
+    res.render('admin/user/register', {
         pretty: true
     });
 });
