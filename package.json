@@ -20,7 +20,7 @@
     "lorem-ipsum": "^1.0.3",
     "md5": "^2.1.0",
     "method-override": "^2.3.0",
-    "moment": "^2.12.0",
+    "moment": "^2.13.0",
     "mongoose": "^4.4.12",
     "morgan": "^1.6.1",
     "passport": "^0.3.2",
